@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws MyException {
+    public static void main(String[] args) throws Exception {
 
         Scanner scanner = new Scanner(System.in);
         String textToEncrypt = null;
@@ -17,21 +17,20 @@ public class Main {
         try {
             int enterNumber = scanner.nextInt();
             if (enterNumber == 1) {
-                CaesarCipher(null, key);
+                caesarCipher(null, key);
             } else if (enterNumber == 2) {
                 decipher(textToDecipher);
             } else {
-                throw new MyException("Нужно ввести только цифры 1 или 2");
+                throw new Exception("Нужно ввести только цифры 1 или 2");
             }
-        } catch (InputMismatchException e) {
-            throw new InputMismatchException("Нужно ввести только цифры 1 или 2");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            System.out.println();
         }
-
     }
 
-    private static String CaesarCipher(String textToEncrypt, int key) throws MyException {
+
+
+    private static String caesarCipher(String textToEncrypt, int key) throws Exception {
         System.out.println("Введи текст, который нужно зашифровать");
         Scanner scanner = new Scanner(System.in);
         textToEncrypt = scanner.nextLine();
@@ -39,7 +38,7 @@ public class Main {
         try {
             key = scanner.nextInt();
         } catch (Exception e) {
-            throw new MyException("Нужны только цифры");
+            throw new InputMismatchException("Нужны только цифры");
         }
 
         String onlyLetters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ";
@@ -47,34 +46,34 @@ public class Main {
         for (int i = 0; i < textToEncrypt.length(); i++) {
             char oneLetter = (char) (textToEncrypt.charAt(i) + key);
 
-            if (oneLetter > ' ') {
+            if (oneLetter > onlyLetters.charAt(' ')) {
                 newText += (char) (textToEncrypt.charAt(i) - (71 - key));
             } else {
                 newText += (char) (textToEncrypt.charAt(i) + key);
             }
         }
-        System.out.println((String) newText);
-        return (String) newText;
+        System.out.println(newText);
+        return newText;
     }
 
-        private static void decipher (String textToDecipher){
-            String onlyLetters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ";
-            System.out.println("Введи текст, который нужно расшифровать");
-            Scanner scanner = new Scanner(System.in);
-            textToDecipher = scanner.nextLine();
-            for (int i = -50; i < 51; i++) {
+    private static void decipher(String textToDecipher) {
+        String onlyLetters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя.,\":-!? ";
+        System.out.println("Введи текст, который нужно расшифровать");
+        Scanner scanner = new Scanner(System.in);
+        textToDecipher = scanner.nextLine();
+        for (int i = -50; i < 51; i++) {
 
-                for (char symbol : textToDecipher.toCharArray()) {
+            for (char symbol : textToDecipher.toCharArray()) {
 
-                    symbol = (char) (symbol - i);
+                symbol = (char) (symbol - i);
 
-                    System.out.print(symbol);
-                }
-                System.out.println("  - для ключа " + i);
+                System.out.print(symbol);
             }
-            }
-
+            System.out.println("  - для ключа " + i);
         }
+    }
+
+}
 
 
 
