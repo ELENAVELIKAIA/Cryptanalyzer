@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         String textToEncrypt = null;
@@ -14,23 +14,17 @@ public class Main {
 
         System.out.println("Привет! Введи цифру 1, если тебе нужно зашифровать текст или " +
                 "введи цифру 2, если нужно расшифровать текст");
-        try {
-            int enterNumber = scanner.nextInt();
-            if (enterNumber == 1) {
-                caesarCipher(null, key);
-            } else if (enterNumber == 2) {
-                decipher(textToDecipher);
-            } else {
-                throw new Exception("Нужно ввести только цифры 1 или 2");
-            }
-        } finally {
-            System.out.println();
+        int enterNumber = scanner.nextInt();
+        if (enterNumber == 1) {
+            caesarCipher(null, key);
+        } else if (enterNumber == 2) {
+            decipher(textToDecipher);
+        } else {
+            System.out.println("Нужно ввести только цифры 1 или 2");
         }
     }
 
-
-
-    private static String caesarCipher(String textToEncrypt, int key) throws Exception {
+    private static String caesarCipher(String textToEncrypt, int key) {
         System.out.println("Введи текст, который нужно зашифровать");
         Scanner scanner = new Scanner(System.in);
         textToEncrypt = scanner.nextLine();
@@ -64,15 +58,13 @@ public class Main {
         for (int i = -50; i < 51; i++) {
 
             for (char symbol : textToDecipher.toCharArray()) {
-
                 symbol = (char) (symbol - i);
-
                 System.out.print(symbol);
             }
+
             System.out.println("  - для ключа " + i);
         }
     }
-
 }
 
 
